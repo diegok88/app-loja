@@ -1,44 +1,44 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
-
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { Tabs } from "expo-router";
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
-    <Tabs
+    <Tabs 
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
+        tabBarActiveTintColor: 'blue', 
+        tabBarInactiveTintColor: 'grey',
+        headerStyle: { backgroundColor: '#E0E0E0' },
+        headerTintColor: '#333333',
+        headerTitleStyle: { fontSize: 30 },
+        tabBarStyle: { backgroundColor: '#E0E0E0' },
+        headerTitleAlign: 'center'
+      }}
+    >
+      <Tabs.Screen 
+        name="home" 
+        options={{ 
+          title: 'Home', 
+          tabBarIcon: ({color, focused}) => (
+            <Ionicons 
+              name={focused ? 'home-sharp' : 'home-outline'} 
+              color={color} 
+              size={24} 
+            />
+          ) 
+        }} 
       />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
+      <Tabs.Screen 
+        name="about" 
+        options={{ 
+          title: 'Sobre mim', 
+          tabBarIcon: ({color, focused}) => (
+            <Ionicons 
+              name={focused ? 'person-circle' : 'person-circle-outline'} 
+              color={color} 
+              size={24} 
+            />
+          ) 
+        }} 
       />
     </Tabs>
   );
